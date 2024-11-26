@@ -3,36 +3,23 @@ import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 const createformSchema = z.object({
   title: z.string().min(3, "title is required"),
   url: z.string().url({ message: "Invalid URL format" }),
   description: z.string().max(50, "Too long"),
-  image: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof createformSchema>;
 
-const Createpage = () => {
+const Updatepage = () => {
   const {
     handleSubmit,
     register,
-    reset,
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(createformSchema) });
-  const queryClient = useQueryClient();
+
   const onSubmit = async (data: FormValues) => {
     console.log("Form submitte", data);
-
-    try {
-      const res = await axios.post("http://localhost:3000/api/create", data);
-      console.log({ res });
-      queryClient.invalidateQueries({ queryKey: ["create-data"] });
-      reset();
-    } catch (err) {
-      console.error("Error creating bookmark", err);
-    }
   };
 
   return (
@@ -65,7 +52,7 @@ const Createpage = () => {
               Url
             </label>
             <input
-              id="url"
+              id="Url"
               type="text"
               {...register("url")}
               placeholder="Enter a url"
@@ -98,11 +85,11 @@ const Createpage = () => {
             className="px-4 py-2 border border-pink-800 rounded-lg bg-pink-600 text-white flex items-center justify-center gap-2 hover:bg-pink-500 focus:ring-2 focus:ring-pink-400 focus:outline-none transition-colors duration-200"
             aria-label="Read Bookmark List"
           >
-            <span className="text-lg font-semibold">Submit</span>
+            <span className="text-lg font-semibold">Update</span>
           </button>
         </form>
       </div>
     </section>
   );
 };
-export default Createpage;
+export default Updatepage;
