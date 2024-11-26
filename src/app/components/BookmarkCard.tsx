@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -6,11 +7,11 @@ import { TbBookmarkEdit } from "react-icons/tb";
 
 type Props = {
   title: string;
-  url: string;
+  link: string;
   description: string;
   image: string;
 };
-const BookmarkCard = ({ title, url, description, image }: Props) => {
+const BookmarkCard = ({ title, link, description, image }: Props) => {
   return (
     <div className="card-container">
       <div className="relative w-[70px] h-full ">
@@ -19,8 +20,8 @@ const BookmarkCard = ({ title, url, description, image }: Props) => {
       <div className="w-[400px] py-2 flex  justify-between">
         <div className="flex flex-col justify-between">
           <h3 className="text-lg font-semibold">{title}</h3>
-          <a href={url} className="text-blue-600 text-sm font-normal">
-            {url}
+          <a href={link} className="text-blue-600 text-sm font-normal">
+            {link}
           </a>
           <p className="card-text">{description}</p>
         </div>
